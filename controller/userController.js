@@ -1,11 +1,29 @@
-var  express     =  require('express');
+var  express        =  require('express');
+var userServices    =  require('../services/userServices.js');
+var bodyParser      = require('body-parser');
+
 
 
 function createUser(req,  res){
-    //console.log('user creating called');
-    res.send('Hi Chetan create user herer');
-
+    try {
+        var reqBody = req.body;
+        userServices.createUser(reqBody,
+            function (successData) {
+                res.send(successData);
+            }, function (errorData) {
+                res.send(errorData);
+            })
+    } catch (error) {
+        res.send(RESPONSE.internalServerError(error.message));
+    }
 }
+
+
+
+
+
+
+
 
 
 
